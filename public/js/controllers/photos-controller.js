@@ -1,16 +1,12 @@
-angular.module('alurapic').controller('PhotosController', function($scope) {
-  $scope.photos = [
-    {
-      title: 'Leão',
-      url: 'http://www.fundosanimais.com/Minis/leoes.jpg'
-    },
-    {
-      title: 'Macaco',
-      url: 'http://www.fundosanimais.com/Minis/macaco.jpg'
-    },
-    {
-      title: 'Gato',
-      url: 'http://www.fundosanimais.com/Minis/fundos-gatos.jpg'
-    }
-  ];
+angular.module('alurapic').controller('PhotosController', function($scope, $http) {
+
+  $scope.photos = [];
+
+  $http.get('/v1/fotos')
+  .then(function(response) {
+    $scope.photos = response.data;
+  })
+  .catch(function(error) {
+    console.log(error)
+  });
 });
